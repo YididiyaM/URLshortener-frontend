@@ -2,21 +2,21 @@ import React, { useState } from "react";
 import axios from "axios";
 import { debounce } from "lodash";
 const PostForm = () => {
-  const url = "http://localhost:8080/shorturl";
-  const [data, setData] = useState("data baby");
+  const url = "http://localhost:8080/rawUrl";
+  const [rawUrl, setRawUrl] = useState("");
 
   const submit = (e) => {
     e.target.reset();
     e.preventDefault();
-    axios.get(url).then((response) => {
+    axios.post(url, { rawUrl }).then((response) => {
       console.log(response);
     });
   };
 
   const handle = debounce((e, url) => {
-    const newData = e.target.value;
-    setData(newData);
-    console.log(newData);
+    const userUrl = e.target.value;
+    setRawUrl(userUrl);
+    console.log(userUrl);
   }, 500);
 
   return (
