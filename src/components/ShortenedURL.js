@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
+
+import Redirect from "./Redirect";
 const ShortenedURL = () => {
   const [shortURL, setShortURL] = useState("");
   const url = "http://localhost:8080/shortUrl";
@@ -12,7 +14,7 @@ const ShortenedURL = () => {
   return (
     <div>
       This is your shortURL
-      <p> </p>
+      <Redirect shortURL={shortURL} />
     </div>
   );
 };
