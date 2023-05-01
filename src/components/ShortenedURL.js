@@ -7,11 +7,9 @@ const ShortenedURL = ({ rawUrl }) => {
   const url = "http://localhost:8080/shortUrl";
   useEffect(() => {
     axios.get(url).then((response) => {
-      console.log(response.data);
-      console.log(rawUrl, "rawurl");
       setShortURL(response.data);
     });
-  }, [rawUrl]);
+  }, []);
   return (
     <div>
       Your shortened URL will appear here:

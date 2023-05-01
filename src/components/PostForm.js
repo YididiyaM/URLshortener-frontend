@@ -9,28 +9,32 @@ const PostForm = () => {
   const url = "http://localhost:8080/rawUrl";
   const [rawUrl, setRawUrl] = useState("");
   const [toggle, setToggle] = useState(false);
-  const [expiration, setExpiration] = useState("");
+  const [expiration, setExpiration] = useState(0);
 
   const submit = (e) => {
     e.target.reset();
     e.preventDefault();
-    if (validator.isURL(rawUrl) && rawUrl.length < 1000) {
-      axios.post(url, { rawUrl }).then((response) => {
-        console.log(response);
-      });
+    axios.post(url, { rawUrl: rawUrl, expiration }).then((response) => {
+      console.log(response);
+    });
+  };
+
+  const handle = debounce((e) => {
+    const userUrl = e.target.value;
+    if (validator.isURL(userUrl) && userUrl.length < 1000) {
+      setRawUrl(userUrl);
     } else {
       alert("Please enter a valid URL that is less than 1000 characters!");
     }
-  };
-
-  const handle = debounce((e, url) => {
-    const userUrl = e.target.value;
-    setRawUrl(userUrl);
   }, 800);
 
   const handleToggle = (val) => {
     setToggle(val);
-    console.log(toggle);
+  };
+
+  const handleExpirationTime = (e) => {
+    setExpiration(e);
+    console.log(expiration);
   };
   return (
     <div>
@@ -42,10 +46,21 @@ const PostForm = () => {
           type="text"
         />
         <button>Submit</button>
-        <ShortenedURL rawUrl={rawUrl} />
-        <p> Set a time limit on this link?</p>
-        <ReactSwitch checked={toggle} onChange={handleToggle} />
       </form>
+      <ShortenedURL rawUrl={rawUrl} />
+      <p> Set a time limit on this link?</p>
+      <ReactSwitch checked={toggle} onChange={handleToggle} />
+      {toggle && (
+        <form>
+          <input
+            type="number"
+            pattern="[0-9]*"
+            placeholder="set amount of time here in minutes!"
+            onChange={handleExpirationTime}
+          />
+          <button>Submit</button>
+        </form>
+      )}
     </div>
   );
 };
