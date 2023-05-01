@@ -1,4 +1,5 @@
 import PostForm from "./components/PostForm";
+import ShortenedURL from "./components/ShortenedURL";
 import "./App.css";
 
 function App() {
@@ -6,6 +7,7 @@ function App() {
     <div className="App">
       <header className="App-header">
         <PostForm />
+        <ShortenedURL />
       </header>
     </div>
   );

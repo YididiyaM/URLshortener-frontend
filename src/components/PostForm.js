@@ -9,14 +9,13 @@ const PostForm = () => {
     e.target.reset();
     e.preventDefault();
     axios.post(url, { rawUrl }).then((response) => {
-      console.log(response);
+      // console.log(response);
     });
   };
 
   const handle = debounce((e, url) => {
     const userUrl = e.target.value;
     setRawUrl(userUrl);
-    console.log(userUrl);
   }, 500);
 
   return (
