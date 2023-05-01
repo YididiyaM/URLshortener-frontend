@@ -2,11 +2,14 @@ import React, { useState } from "react";
 import axios from "axios";
 import { debounce } from "lodash";
 import validator from "validator";
+import ReactSwitch from "react-switch";
 
 import ShortenedURL from "./ShortenedURL";
 const PostForm = () => {
   const url = "http://localhost:8080/rawUrl";
   const [rawUrl, setRawUrl] = useState("");
+  const [toggle, setToggle] = useState(false);
+  const [expiration, setExpiration] = useState("");
 
   const submit = (e) => {
     e.target.reset();
@@ -25,6 +28,10 @@ const PostForm = () => {
     setRawUrl(userUrl);
   }, 800);
 
+  const handleToggle = (val) => {
+    setToggle(val);
+    console.log(toggle);
+  };
   return (
     <div>
       <form onSubmit={(e) => submit(e)}>
@@ -36,6 +43,8 @@ const PostForm = () => {
         />
         <button>Submit</button>
         <ShortenedURL rawUrl={rawUrl} />
+        <p> Set a time limit on this link?</p>
+        <ReactSwitch checked={toggle} onChange={handleToggle} />
       </form>
     </div>
   );
