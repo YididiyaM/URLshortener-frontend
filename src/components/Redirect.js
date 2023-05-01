@@ -11,7 +11,7 @@ const Redirect = ({ shortURL }) => {
     });
   }, [redirectedURL]);
   return (
-    <NavLink to={redirectedURL} exact>
+    <NavLink to={redirectedURL} target="_blank" exact>
       {redirectedURL}
     </NavLink>
   );

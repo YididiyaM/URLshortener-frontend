@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import axios from "axios";
 import { debounce } from "lodash";
+import validator from "validator";
 
 const PostForm = () => {
   const url = "http://localhost:8080/rawUrl";
@@ -9,9 +10,13 @@ const PostForm = () => {
   const submit = (e) => {
     e.target.reset();
     e.preventDefault();
-    axios.post(url, { rawUrl }).then((response) => {
-      // console.log(response);
-    });
+    if (validator.isURL(rawUrl)) {
+      axios.post(url, { rawUrl }).then((response) => {
+        console.log(response);
+      });
+    } else {
+      alert("Please enter a valid URL!");
+    }
   };
 
   const handle = debounce((e, url) => {
