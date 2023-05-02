@@ -14,9 +14,11 @@ const PostForm = () => {
   const submit = (e) => {
     e.target.reset();
     e.preventDefault();
-    axios.post(url, { rawUrl: rawUrl, expiration }).then((response) => {
-      console.log(response);
-    });
+    axios
+      .post(url, { rawUrl: rawUrl, expiration: expiration })
+      .then((response) => {
+        console.log(response);
+      });
   };
 
   const handle = debounce((e) => {
@@ -40,27 +42,26 @@ const PostForm = () => {
     <div>
       <form onSubmit={(e) => submit(e)}>
         <input
+          className="urlForm"
           onChange={(e) => handle(e)}
           id="whatever "
           placeholder="insert your url here"
           type="text"
         />
-        <button>Submit</button>
-      </form>
-      <ShortenedURL rawUrl={rawUrl} />
-      <p> Set a time limit on this link?</p>
-      <ReactSwitch checked={toggle} onChange={handleToggle} />
-      {toggle && (
-        <form>
+        <span> Set a time limit on this link?</span>
+        <ReactSwitch checked={toggle} onChange={handleToggle} />
+        {toggle && (
           <input
+            className="expirationForm"
             type="number"
             pattern="[0-9]*"
             placeholder="set amount of time here in minutes!"
             onChange={handleExpirationTime}
           />
-          <button>Submit</button>
-        </form>
-      )}
+        )}
+        <button className="shortenButton">Shorten</button>
+      </form>
+      <ShortenedURL rawUrl={rawUrl} />
     </div>
   );
 };

@@ -7,6 +7,10 @@ function App() {
     <Router>
       <div className="App">
         <header className="App-header">
+          <div className="title">
+            <h2>Y A . L S</h2>
+            <p> Yet Another Link Shortener</p>
+          </div>
           <PostForm />
         </header>
       </div>
