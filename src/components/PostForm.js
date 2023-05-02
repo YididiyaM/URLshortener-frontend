@@ -9,7 +9,7 @@ const PostForm = () => {
   const url = "http://localhost:8080/rawUrl";
   const [rawUrl, setRawUrl] = useState("");
   const [toggle, setToggle] = useState(false);
-  const [expiration, setExpiration] = useState(0);
+  const [expiration, setExpiration] = useState(Number.MAX_SAFE_INTEGER);
 
   const submit = (e) => {
     e.target.reset();
@@ -59,9 +59,9 @@ const PostForm = () => {
             onChange={handleExpirationTime}
           />
         )}
+        <ShortenedURL rawUrl={rawUrl} />
         <button className="shortenButton">Shorten</button>
       </form>
-      <ShortenedURL rawUrl={rawUrl} />
     </div>
   );
 };
